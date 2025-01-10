@@ -19,7 +19,7 @@ const HeroSection = (props: Props) => {
           Discover the better choice, together!
         </p>
         <Link href='/login'>
-          <Button className='mt-2'>START FREE</Button>
+          <Button className='mt-5'>START FREE</Button>
         </Link>
       </div>
     </div>
