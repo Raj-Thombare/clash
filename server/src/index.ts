@@ -23,13 +23,18 @@ app.get('/', async (req: Request, res: Response) => {
             name: "Raj Thombare"
         });
 
-        await sendEmail('wewiyab904@kvegg.com', 'Testing SMTP', html);
+        // await sendEmail('wewiyab904@kvegg.com', 'Hello Mr Walter', html);
+
+        await emailQueue.add(emailQueueName, { to: 'wewiyab904@kvegg.com', subject: 'Testing queue email', body: html })
         res.json({ msg: "Email sent successfully!" });
     } catch (error) {
         console.log(error)
         res.json({ error: "Error occured!" });
     }
 });
+
+import "./jobs/index.js";
+import { emailQueue, emailQueueName } from "./jobs/EmailJob.js";
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
