@@ -28,7 +28,7 @@ const HeroSection = (props: Props) => {
             containerClassName='rounded-full'
             as='button'
             className='flex items-center space-x-2'>
-            <span>START FREE</span>
+            <span className='font-bold'>START FREE</span>
           </HoverBorderGradient>
         </Link>
       </div>
