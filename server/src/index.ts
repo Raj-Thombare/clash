@@ -4,6 +4,9 @@ import path from "path";
 import { fileURLToPath } from "url";
 import ejs from "ejs";
 import { sendEmail } from "./config/mail.js";
+import Routes from "./routes/index.js";
+import "./jobs/index.js";
+import { emailQueue, emailQueueName } from "./jobs/EmailJob.js";
 
 const app: Application = express();
 
@@ -16,6 +19,8 @@ app.use(express.urlencoded({ extended: false }));
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "./views"));
+
+app.use(Routes);
 
 app.get('/', async (req: Request, res: Response) => {
     try {
@@ -32,9 +37,6 @@ app.get('/', async (req: Request, res: Response) => {
         res.json({ error: "Error occured!" });
     }
 });
-
-import "./jobs/index.js";
-import { emailQueue, emailQueueName } from "./jobs/EmailJob.js";
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
