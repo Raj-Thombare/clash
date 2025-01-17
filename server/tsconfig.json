@@ -11,9 +11,6 @@
     "strict": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "src",
-    "../frontend/lib/env.ts",
-    "../frontend/lib/apiEndPoints.ts"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

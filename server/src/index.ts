@@ -1,4 +1,4 @@
-import express, { Application, Request, Response } from "express";
+import express, { Express, Request, Response } from "express";
 import "dotenv/config";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -8,7 +8,7 @@ import Routes from "./routes/index.js";
 import "./jobs/index.js";
 import { emailQueue, emailQueueName } from "./jobs/EmailJob.js";
 
-const app: Application = express();
+const app: Express = express();
 
 const PORT = process.env.PORT || 7000;
 
@@ -22,20 +22,22 @@ app.set("views", path.resolve(__dirname, "./views"));
 
 app.use(Routes);
 
-app.get('/', async (req: Request, res: Response) => {
-    try {
-        const html = await ejs.renderFile(__dirname + `/views/emails/welcome.ejs`, {
-            name: "Raj Thombare"
-        });
+app.get('/', async (req: Request, res: Response): Promise<any> => {
+    return res.json({
+        message: "Server is running!"
+    })
+    // try {
+    //     const html = await ejs.renderFile(__dirname + `/views/emails/welcome.ejs`, {
+    //         name: "Raj Thombare"
+    //     });
 
-        // await sendEmail('wewiyab904@kvegg.com', 'Hello Mr Walter', html);
+    //     // await sendEmail('wewiyab904@kvegg.com', 'Hello Mr Walter', html);
 
-        await emailQueue.add(emailQueueName, { to: 'wewiyab904@kvegg.com', subject: 'Testing queue email', body: html })
-        res.json({ msg: "Email sent successfully!" });
-    } catch (error) {
-        console.log(error)
-        res.json({ error: "Error occured!" });
-    }
+    //     await emailQueue.add(emailQueueName, { to: 'wewiyab904@kvegg.com', subject: 'Testing queue email', body: html })
+    //     res.json({ msg: "Email sent successfully!" });
+    // } catch (error) {
+    //     res.json({ error: "Error occured!" });
+    // }
 });
 
 app.listen(PORT, () => {
