@@ -1,3 +1,4 @@
+import { authLimitter } from './../config/rateLimit.js';
 import { Router, Response, Request } from "express";
 import { loginSchema, registerSchema } from "../validation/authValidation.js";
 import prisma from "../config/database.js";
@@ -11,7 +12,7 @@ import authMiddleware, { AuthenticatedRequest } from "../middleware/AuthMiddlewa
 
 const router = Router();
 
-router.post("/login", async (req: Request, res: Response): Promise<any> => {
+router.post("/login", authLimitter, async (req: Request, res: Response): Promise<any> => {
     try {
 
         const body = req.body;
@@ -70,7 +71,7 @@ router.post("/login", async (req: Request, res: Response): Promise<any> => {
 })
 
 //login check route
-router.post("/check/credentials", async (req: Request, res: Response): Promise<any> => {
+router.post("/check/credentials", authLimitter, async (req: Request, res: Response): Promise<any> => {
     try {
 
         const body = req.body;
@@ -117,7 +118,7 @@ router.post("/check/credentials", async (req: Request, res: Response): Promise<a
     }
 })
 
-router.post("/register", async (req: Request, res: Response): Promise<any> => {
+router.post("/register", authLimitter, async (req: Request, res: Response): Promise<any> => {
     try {
         const body = req.body;
         const payload = registerSchema.parse(body);

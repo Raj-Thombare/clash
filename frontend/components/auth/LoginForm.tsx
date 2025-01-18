@@ -5,7 +5,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { loginAction } from "@/actions/authActions";
 import { signIn } from "next-auth/react";
@@ -65,7 +64,7 @@ const LoginForm = (props: Props) => {
         )}
       </LabelInputContainer>
       <div className='flex items-end justify-end mb-2'>
-        <Link href='/register' className='text-right'>
+        <Link href='/forget-password' className='text-right'>
           Forget password?
         </Link>
       </div>
