@@ -8,6 +8,7 @@ import Routes from "./routes/index.js";
 import "./jobs/index.js";
 import { emailQueue, emailQueueName } from "./jobs/EmailJob.js";
 import { appLimitter } from "./config/rateLimit.js";
+import fileUpload from "express-fileupload";
 
 const app: Express = express();
 
@@ -18,6 +19,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(appLimitter)
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: '/tmp/'
+}))
+app.use(express.static('public'))
 app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "./views"));
 
