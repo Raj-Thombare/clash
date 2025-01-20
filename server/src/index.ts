@@ -9,6 +9,7 @@ import "./jobs/index.js";
 import { emailQueue, emailQueueName } from "./jobs/EmailJob.js";
 import { appLimitter } from "./config/rateLimit.js";
 import fileUpload from "express-fileupload";
+import cors from "cors";
 
 const app: Express = express();
 
@@ -17,6 +18,7 @@ const PORT = process.env.PORT || 7000;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(appLimitter)
 app.use(fileUpload({

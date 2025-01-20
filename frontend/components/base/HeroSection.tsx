@@ -11,7 +11,7 @@ type Props = {};
 
 const HeroSection = (props: Props) => {
   return (
-    <div className='w-full h-screen rounded-md bg-neutral-900 flex flex-col items-center justify-center relative'>
+    <div className='w-full h-screen bg-neutral-900 flex flex-col items-center justify-center relative'>
       <div>
         <div className='gap-y-5'>
           <TextHoverEffect text='Clash' />
