@@ -65,7 +65,7 @@ router.post("/login", authLimitter, async (req: Request, res: Response): Promise
             const errors = formatError(error);
             return res.status(422).json({ message: "Invalid data", errors })
         }
-
+        console.log("error: ", error)
         return res.status(500).json({ message: "Something went wrong! please try again." })
     }
 })
@@ -140,7 +140,7 @@ router.post("/register", authLimitter, async (req: Request, res: Response): Prom
 
         const token = await bcrypt.hash(uuidv4(), salt);
         const url = `${process.env.APP_URL}/verify-email?email=${payload.email}&token=${token}`;
-
+        console.log("url: ", url)
         const emailbody = await renderEmailEjs("email-verify", {
             name: payload.name,
             url: url,

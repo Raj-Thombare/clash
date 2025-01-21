@@ -54,7 +54,7 @@ const ResetPasswordForm = (props: Props) => {
         )}
       </LabelInputContainer>
       <LabelInputContainer className='mb-4'>
-        <Label htmlFor='password'>Password</Label>
+        <Label htmlFor='password'>New Password</Label>
         <Input
           id='password'
           name='password'
@@ -66,7 +66,7 @@ const ResetPasswordForm = (props: Props) => {
         )}
       </LabelInputContainer>
       <LabelInputContainer className='mb-8'>
-        <Label htmlFor='confirm_password'>Confirm Password</Label>
+        <Label htmlFor='confirm_password'>Confirm New Password</Label>
         <Input
           id='confirm_password'
           name='confirm_password'
