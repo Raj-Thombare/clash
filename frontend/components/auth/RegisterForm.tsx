@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import Link from "next/link";
-import { registerAction } from "@/actions/authActions";
+import { registerAction } from "@/app/actions/authActions";
 import SubmitBtn from "@/components/common/SubmitBtn";
 import { useActionState } from "react";
 import { toast } from "sonner";

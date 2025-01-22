@@ -4,7 +4,7 @@ import React, { useActionState, useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { resetPasswordAction } from "@/actions/authActions";
+import { resetPasswordAction } from "@/app/actions/authActions";
 import SubmitBtn from "../common/SubmitBtn";
 import { useSearchParams, useRouter } from "next/navigation";
 import { toast } from "sonner";

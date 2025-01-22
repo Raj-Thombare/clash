@@ -3,7 +3,7 @@ import AddClash from "@/components/clash/AddClash";
 import React from "react";
 import { authOptions, CustomSession } from "../api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
-import { fetchClashes } from "@/components/fetch/clashFetch";
+import { fetchClashes } from "@/app/fetch/clashFetch";
 import ClashCard from "@/components/clash/ClashCard";
 
 type Props = {};

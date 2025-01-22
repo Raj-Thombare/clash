@@ -25,7 +25,7 @@ import { format } from "date-fns";
 import { CLASH_URL } from "@/lib/apiEndPoints";
 import axios, { AxiosError } from "axios";
 import { toast } from "sonner";
-import { clearCache } from "@/actions/commonActions";
+import { clearCache } from "@/app/actions/commonActions";
 
 type Props = {
   token: string;

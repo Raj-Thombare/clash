@@ -3,5 +3,6 @@ export const supportMimes = [
     "image/jpg",
     "image/jpeg",
     "image/gif",
-    "image/webp"
+    "image/webp",
+    "image/avif"
 ]

@@ -14,7 +14,7 @@ import {
 import { toast } from "sonner";
 import axios from "axios";
 import { CLASH_URL } from "@/lib/apiEndPoints";
-import { clearCache } from "@/actions/commonActions";
+import { clearCache } from "@/app/actions/commonActions";
 
 type Props = {
   open: boolean;

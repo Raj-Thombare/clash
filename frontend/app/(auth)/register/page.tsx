@@ -1,7 +1,15 @@
 import React from "react";
 import RegisterForm from "@/components/auth/RegisterForm";
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 
-const page = () => {
+const page = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (session) {
+    redirect("/dashboard");
+  }
   return (
     <div className='h-screen flex justify-center items-center p-8 md:p-0 mb-0 md:mb-20'>
       <div className='mt-0 md:mt-20 max-w-md w-full mx-auto rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black'>

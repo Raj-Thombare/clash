@@ -26,7 +26,7 @@ import { CLASH_URL } from "@/lib/apiEndPoints";
 import { CustomUser } from "@/app/api/auth/[...nextauth]/options";
 import axios, { AxiosError } from "axios";
 import { toast } from "sonner";
-import { clearCache } from "@/actions/commonActions";
+import { clearCache } from "@/app/actions/commonActions";
 
 type Props = {
   user: CustomUser;
