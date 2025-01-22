@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -23,20 +23,24 @@ import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { CLASH_URL } from "@/lib/apiEndPoints";
-import { CustomUser } from "@/app/api/auth/[...nextauth]/options";
 import axios, { AxiosError } from "axios";
 import { toast } from "sonner";
 import { clearCache } from "@/actions/commonActions";
 
 type Props = {
-  user: CustomUser;
+  token: string;
+  clash: ClashType;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-const AddClash = ({ user }: Props) => {
-  const [open, setOpen] = useState<boolean>(false);
+const EditClash = ({ token, clash, open, setOpen }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [clashData, setClashData] = useState<ClashFormType>({});
-  const [date, setDate] = useState<Date | null>();
+  const [clashData, setClashData] = useState<ClashFormType>({
+    title: clash.title,
+    description: clash.description,
+  });
+  const [date, setDate] = useState<Date | null>(new Date(clash.expire_at));
   const [image, setImage] = useState<File | null>(null);
   const [errors, setErrors] = useState<ClashFormTypeError>({});
 
@@ -56,9 +60,9 @@ const AddClash = ({ user }: Props) => {
       formData.append("expire_at", date?.toISOString() ?? "");
       if (image) formData.append("image", image);
 
-      const { data } = await axios.post(CLASH_URL, formData, {
+      const { data } = await axios.put(`${CLASH_URL}/${clash.id}`, formData, {
         headers: {
-          Authorization: user.token,
+          Authorization: token,
         },
       });
 
@@ -69,7 +73,7 @@ const AddClash = ({ user }: Props) => {
         setDate(null);
         setImage(null);
         setErrors({});
-        toast.success("Clash added successfully!");
+        toast.success(data?.message);
         setOpen(false);
       }
     } catch (error) {
@@ -150,7 +154,7 @@ const AddClash = ({ user }: Props) => {
                 <Calendar
                   mode='single'
                   selected={date ?? new Date()}
-                  onSelect={setDate}
+                  onSelect={(date) => setDate(date!)}
                   initialFocus
                 />
               </PopoverContent>
@@ -171,4 +175,4 @@ const AddClash = ({ user }: Props) => {
   );
 };
 
-export default AddClash;
+export default EditClash;

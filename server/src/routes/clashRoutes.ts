@@ -12,6 +12,9 @@ router.get("/", authMiddleware, async (req: Request, res: Response): Promise<any
     try {
         const clashs = await prisma.clash.findMany({
             where: { user_id: req.user?.id },
+            orderBy: {
+                id: "desc"
+            }
         });
         return res.json({ message: "Data Fetched", data: clashs });
 
