@@ -12,6 +12,7 @@ import { getImageUrl } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import ClashCardMenu from "./ClashCardMenu";
+import Link from "next/link";
 
 type Props = {
   clash: ClashType;
@@ -41,7 +42,9 @@ const ClashCard = ({ clash, token }: Props) => {
         </p>
       </CardContent>
       <CardFooter>
-        <Button>Item</Button>
+        <Link href={`/clash/items/${clash.id}`}>
+          <Button>Item</Button>
+        </Link>
       </CardFooter>
     </Card>
   );

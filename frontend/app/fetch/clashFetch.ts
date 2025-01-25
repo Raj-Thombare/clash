@@ -1,7 +1,7 @@
 import { CLASH_URL } from "@/lib/apiEndPoints"
 
 export async function fetchClashes(token: string) {
-    let data = await fetch(CLASH_URL, {
+    const res = await fetch(CLASH_URL, {
         headers: {
             Authorization: token
         },
@@ -10,9 +10,32 @@ export async function fetchClashes(token: string) {
             tags: ["dashboard"]
         }
     })
-    let posts = await data.json();
 
-    if (!posts) return []
+    if (!res.ok) {
+        throw new Error("Failed to fetch data")
+    }
+    const response = await res.json();
 
-    return posts.data;
+    if (response?.data) {
+        return response?.data;
+    }
+
+    return [];
+}
+
+export async function fetchClash(id: number) {
+    const res = await fetch(`${CLASH_URL}/${id}`, {
+        cache: "no-cache"
+    })
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch data")
+    }
+
+    const response = await res.json();
+    if (response?.data) {
+        return response?.data;
+    }
+
+    return null;
 }  

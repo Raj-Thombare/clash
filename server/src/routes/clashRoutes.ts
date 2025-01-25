@@ -28,7 +28,7 @@ router.get("/", authMiddleware, async (req: Request, res: Response): Promise<any
     }
 })
 
-router.get("/:id", authMiddleware, async (req: Request, res: Response): Promise<any> => {
+router.get("/:id", async (req: Request, res: Response): Promise<any> => {
     try {
 
         const { id } = req.params;
@@ -36,7 +36,8 @@ router.get("/:id", authMiddleware, async (req: Request, res: Response): Promise<
             where: { id: Number(id) },
             select: {
                 id: true,
-                title: true
+                title: true,
+                description: true
             },
         });
         return res.json({ message: "Data Fetched", data: clash });
@@ -164,6 +165,11 @@ router.delete("/:id", authMiddleware, async (req: Request, res: Response): Promi
     } catch (error) {
         return res.status(500).json({ message: "Something went wrong! please try again." })
     }
+})
+
+//Clash Item Routes
+router.post("/items", authMiddleware, async (req: Request, res: Response): Promise<any> => {
+
 })
 
 export default router;

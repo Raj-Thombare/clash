@@ -1,0 +1,31 @@
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+import { fetchClash } from "@/app/fetch/clashFetch";
+import Navbar from "@/components/base/Navbar";
+import AddClashItems from "@/components/clash/AddClashItems";
+import { getServerSession } from "next-auth";
+import React from "react";
+
+type Props = {
+  params: Promise<{ id: number }>;
+};
+
+const page = async ({ params }: Props) => {
+  const { id } = await params;
+  const clash: ClashType | null = await fetchClash(id);
+  const session = await getServerSession(authOptions);
+
+  return (
+    <div className='container'>
+      <Navbar />
+      <div className='px-10'>
+        <div className='mt-4'>
+          <h1 className='text-2xl lg:text-4xl font-bold'>{clash?.title}</h1>
+          <p className='text-lg'>{clash?.description}</p>
+        </div>
+        <AddClashItems token={session?.user?.token!} clashId={id!} />
+      </div>
+    </div>
+  );
+};
+
+export default page;
