@@ -10,13 +10,13 @@ const router = Router();
 
 router.get("/", authMiddleware, async (req: Request, res: Response): Promise<any> => {
     try {
-        const clashs = await prisma.clash.findMany({
+        const clashes = await prisma.clash.findMany({
             where: { user_id: req.user?.id },
             orderBy: {
                 id: "desc"
             }
         });
-        return res.json({ message: "Data Fetched", data: clashs });
+        return res.json({ message: "Data Fetched", data: clashes });
 
     } catch (error) {
         if (error instanceof ZodError) {
@@ -34,11 +34,25 @@ router.get("/:id", async (req: Request, res: Response): Promise<any> => {
         const { id } = req.params;
         const clash = await prisma.clash.findUnique({
             where: { id: Number(id) },
-            select: {
-                id: true,
-                title: true,
-                description: true
-            },
+            include: {
+                clashItem: {
+                    select: {
+                        image: true,
+                        id: true,
+                        count: true
+                    }
+                },
+                clashComments: {
+                    select: {
+                        id: true,
+                        comment: true,
+                        created_at: true
+                    },
+                    orderBy: {
+                        id: "desc"
+                    }
+                }
+            }
         });
         return res.json({ message: "Data Fetched", data: clash });
 
