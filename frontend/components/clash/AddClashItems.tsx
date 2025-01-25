@@ -96,7 +96,7 @@ const AddClashItems = ({ token, clashId }: Props) => {
             onChange={(event) => handleImageChange(event, 0)}
           />
           <div
-            className='w-full flex justify-center items-center rounded-md border-2 border-dashed p-2 h-[300px] hover:border'
+            className='w-full flex justify-center items-center rounded-md border-2 border-dashed p-2 h-[300px]'
             onClick={() => img1Ref?.current?.click()}>
             {urls.length > 0 && urls?.[0] !== "" ? (
               <Image
@@ -107,7 +107,7 @@ const AddClashItems = ({ token, clashId }: Props) => {
                 className='w-full h-[300px] object-contain'
               />
             ) : (
-              <h1 className='flex items-center space-x-2 text-xl'>
+              <h1 className='flex items-center space-x-2 text-lg text-gray-600'>
                 <Upload /> <span>Upload File</span>
               </h1>
             )}
@@ -130,7 +130,7 @@ const AddClashItems = ({ token, clashId }: Props) => {
             onChange={(event) => handleImageChange(event, 1)}
           />
           <div
-            className='w-full flex justify-center items-center rounded-md border-2 border-dashed p-2 h-[300px] hover:border'
+            className='w-full flex justify-center items-center rounded-md border-2 border-dashed p-2 h-[300px]'
             onClick={() => img2Ref?.current?.click()}>
             {urls.length > 0 && urls?.[1] !== "" ? (
               <Image
@@ -141,7 +141,7 @@ const AddClashItems = ({ token, clashId }: Props) => {
                 className='w-full h-[300px] object-contain'
               />
             ) : (
-              <h1 className='flex items-center space-x-2 text-xl'>
+              <h1 className='flex items-center space-x-2 text-lg text-gray-600'>
                 <Upload /> <span>Upload File</span>
               </h1>
             )}

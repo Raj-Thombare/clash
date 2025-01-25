@@ -3,7 +3,7 @@ import prisma from "../config/database.js";
 import { formatError, imageValidator, removeImage, uploadFile } from "../helper.js";
 import { ZodError } from "zod";
 import { clashSchema } from "../validation/clashValidation.js";
-import { UploadedFile } from "express-fileupload";
+import { FileArray, UploadedFile } from "express-fileupload";
 import authMiddleware from "../middleware/AuthMiddleware.js";
 
 const router = Router();
@@ -169,7 +169,41 @@ router.delete("/:id", authMiddleware, async (req: Request, res: Response): Promi
 
 //Clash Item Routes
 router.post("/items", authMiddleware, async (req: Request, res: Response): Promise<any> => {
+    const { id } = req.body;
+    const files: FileArray | null | undefined = req.files;
 
+    let imgErrors: Array<string> = []
+    const images = files?.["images[]"] as UploadedFile[];
+    if (images.length >= 2) {
+        // image validation
+        images.map((img) => {
+            const validMsg = imageValidator(img?.size, img?.mimetype)
+            if (validMsg) imgErrors.push(validMsg)
+        })
+
+        if (imgErrors.length > 0) {
+            return res.status(422).json({ errors: imgErrors })
+        }
+
+        // upload images to item
+        let uploadedImages: string[] = [];
+        images.map((img) => {
+            uploadedImages.push(uploadFile(img))
+        })
+
+        uploadedImages.map(async (item) => {
+            await prisma.clashItem.create({
+                data: {
+                    image: item,
+                    clash_id: Number(id)
+                }
+            })
+        })
+
+        return res.json({ message: "Clash Items updated successfully!" })
+    }
+
+    return res.status(422).json({ errors: ["Please select at least 2 images for clashing."] })
 })
 
 export default router;
