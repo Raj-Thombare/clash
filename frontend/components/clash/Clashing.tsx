@@ -4,14 +4,17 @@ import React, { Fragment, useState } from "react";
 import Image from "next/image";
 import { getImageUrl } from "@/lib/utils";
 import CountUp from "react-countup";
+import { Button } from "../ui/button";
 
 type Props = {
   clash: ClashType;
 };
 
-const ViewClashItems = ({ clash }: Props) => {
+const Clashing = ({ clash }: Props) => {
   const [clashComments, setClashComments] = useState(clash.clashComments);
   const [clashItems, setClashItems] = useState(clash.clashItem);
+
+  const [comment, setComment] = useState("");
   return (
     <div className='mt-10'>
       <div className='flex flex-wrap lg:flex-nowrap justify-between items-center'>
@@ -52,7 +55,15 @@ const ViewClashItems = ({ clash }: Props) => {
             );
           })}
       </div>
-
+      <form className='mt-4 w-full'>
+        <textarea
+          placeholder='Type your suggestions...'
+          value={comment}
+          className='w-full p-4'
+          onChange={(e) => setComment(e.target.value)}
+        />
+        <Button className='w-full mt-2'>Add Comment</Button>
+      </form>
       {/* comments */}
       <div className='mt-4'>
         {clashComments &&
@@ -72,4 +83,4 @@ const ViewClashItems = ({ clash }: Props) => {
   );
 };
 
-export default ViewClashItems;
+export default Clashing;
