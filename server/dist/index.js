@@ -7,11 +7,24 @@ import "./jobs/index.js";
 import { appLimitter } from "./config/rateLimit.js";
 import fileUpload from "express-fileupload";
 import cors from "cors";
+import { Server } from "socket.io";
+import { createServer } from "http";
+import { setupSocket } from "./socket.js";
+import helmet from "helmet";
 const app = express();
+const server = createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: process.env.CLIENT_APP_URL,
+    }
+});
+export { io };
+setupSocket(io);
 const PORT = process.env.PORT || 7000;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(express.json());
 app.use(cors());
+app.use(helmet());
 app.use(express.urlencoded({ extended: false }));
 app.use(appLimitter);
 app.use(fileUpload({
@@ -26,17 +39,7 @@ app.get('/', async (req, res) => {
     return res.json({
         message: "Server is running!"
     });
-    // try {
-    //     const html = await ejs.renderFile(__dirname + `/views/emails/welcome.ejs`, {
-    //         name: "Raj Thombare"
-    //     });
-    //     // await sendEmail('wewiyab904@kvegg.com', 'Hello Mr Walter', html);
-    //     await emailQueue.add(emailQueueName, { to: 'wewiyab904@kvegg.com', subject: 'Testing queue email', body: html })
-    //     res.json({ msg: "Email sent successfully!" });
-    // } catch (error) {
-    //     res.json({ error: "Error occured!" });
-    // }
 });
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

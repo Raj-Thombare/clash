@@ -16,9 +16,9 @@ const page = async ({ params }: Props) => {
   const session = await getServerSession(authOptions);
 
   return (
-    <div className='container'>
+    <div>
       <Navbar />
-      <div className='px-10'>
+      <div className='px-10 mx-20'>
         <div className='mt-4'>
           <h1 className='text-2xl lg:text-4xl font-bold'>{clash?.title}</h1>
           <p className='text-lg'>{clash?.description}</p>

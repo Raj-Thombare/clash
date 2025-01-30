@@ -1,9 +1,10 @@
 "use client";
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import { getImageUrl } from "@/lib/utils";
 import CountUp from "react-countup";
+import socket from "@/lib/socket";
 
 type Props = {
   clash: ClashType;
@@ -12,6 +13,36 @@ type Props = {
 const ViewClashItems = ({ clash }: Props) => {
   const [clashComments, setClashComments] = useState(clash.clashComments);
   const [clashItems, setClashItems] = useState(clash.clashItem);
+
+  const updateComment = (payload: any) => {
+    if (clashComments && clashComments.length > 0) {
+      setClashComments([payload, ...clashComments!]);
+    } else {
+      setClashComments([payload]);
+    }
+  };
+
+  const updateCounter = (id: number) => {
+    const items = [...clashItems];
+    const findIndex = clashItems.findIndex((item) => item.id === id);
+    if (findIndex !== -1) {
+      items[findIndex].count += 1;
+    }
+    setClashItems(items);
+  };
+
+  useEffect(() => {
+    socket.on(`clashing-${clash.id}`, (data) => {
+      console.log("client side clash Id", data?.clashItemId);
+      updateCounter(data?.clashItemId);
+    });
+
+    socket.on(`clashing_comment-${clash.id}`, (data) => {
+      console.log("client side comments", data);
+      updateComment(data);
+    });
+  }, []);
+
   return (
     <div className='mt-10'>
       <div className='flex flex-wrap lg:flex-nowrap justify-between items-center'>
@@ -21,7 +52,7 @@ const ViewClashItems = ({ clash }: Props) => {
             return (
               <Fragment key={item.id}>
                 {/* first block */}
-                <div className='w-full lg:w-[500px] flex justify-center items-center flex-col hover:bg-slate-100 hover:cursor-pointer transition-all'>
+                <div className='w-full lg:w-[500px] flex justify-center items-center flex-col hover:cursor-pointer transition-all'>
                   <div className='w-full flex justify-center items-center rounded-md p-2 h-[300px]'>
                     <Image
                       src={getImageUrl(item.image)}
@@ -55,18 +86,24 @@ const ViewClashItems = ({ clash }: Props) => {
 
       {/* comments */}
       <div className='mt-4'>
-        {clashComments &&
-          clashComments.length > 0 &&
-          clashComments.map((item, idx) => {
-            return (
-              <div
-                className='w-ful md:w-[600px] rounded-lg p-4 bg-muted mb-4'
-                key={item.id}>
-                <p className='font-bold'>{item.comment}</p>
-                <p>{new Date(item.create_at).toDateString()}</p>
-              </div>
-            );
-          })}
+        <h2 className='font-bold text-xl'>Comments</h2>
+
+        <div className='mt-4'>
+          {clashComments && clashComments.length > 0 ? (
+            clashComments.map((item, idx) => {
+              return (
+                <div
+                  className='w-full md:w-[600px] rounded-lg p-4 bg-muted mb-4'
+                  key={idx}>
+                  <p className='font-medium'>{item.comment}</p>
+                  <p>{new Date(item.created_at).toDateString()}</p>
+                </div>
+              );
+            })
+          ) : (
+            <div className='text-sm'>No comments yet!</div>
+          )}
+        </div>
       </div>
     </div>
   );

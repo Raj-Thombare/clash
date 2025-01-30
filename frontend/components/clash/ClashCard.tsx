@@ -26,7 +26,7 @@ const ClashCard = ({ clash, token }: Props) => {
         <CardTitle className='text-xl'>{clash.title}</CardTitle>
         <ClashCardMenu token={token} clash={clash} />
       </CardHeader>
-      <CardContent className='h-[300px]'>
+      <CardContent className='h-auto'>
         {clash.image && (
           <Image
             src={getImageUrl(clash.image!)}

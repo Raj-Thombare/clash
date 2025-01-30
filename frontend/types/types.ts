@@ -35,5 +35,5 @@ type ClashItem = {
 type ClashComment = {
     id: number,
     comment: string;
-    create_at: string
+    created_at: string
 }

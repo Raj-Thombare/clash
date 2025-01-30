@@ -14,9 +14,9 @@ const page = async (props: Props) => {
   const clashes = await fetchClashes(session?.user?.token!);
 
   return (
-    <div className='container'>
+    <div>
       <Navbar />
-      <div className='px-10'>
+      <div className='px-10 mx-20'>
         <div className='text-end mt-10'>
           <AddClash user={session?.user!} />
         </div>
