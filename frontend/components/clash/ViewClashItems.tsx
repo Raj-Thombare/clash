@@ -33,12 +33,10 @@ const ViewClashItems = ({ clash }: Props) => {
 
   useEffect(() => {
     socket.on(`clashing-${clash.id}`, (data) => {
-      console.log("client side clash Id", data?.clashItemId);
       updateCounter(data?.clashItemId);
     });
 
     socket.on(`clashing_comment-${clash.id}`, (data) => {
-      console.log("client side comments", data);
       updateComment(data);
     });
   }, []);
