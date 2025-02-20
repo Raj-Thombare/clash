@@ -40,7 +40,9 @@ export const authOptions: AuthOptions = {
             },
             async authorize(credentials) {
                 try {
-                    const { data } = await axios.post(LOGIN_URL, credentials);
+                    const { data } = await axios.post(LOGIN_URL, credentials, {
+                        withCredentials: true
+                    });
 
                     const user: CustomUser = data?.data;
 
