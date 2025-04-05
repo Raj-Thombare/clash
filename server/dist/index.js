@@ -23,7 +23,10 @@ setupSocket(io);
 const PORT = process.env.PORT || 7000;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: process.env.CLIENT_APP_URL,
+    credentials: true
+}));
 app.use(helmet());
 app.use(express.urlencoded({ extended: false }));
 app.use(appLimitter);

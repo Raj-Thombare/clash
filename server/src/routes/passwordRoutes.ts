@@ -7,6 +7,8 @@ import { forgetPasswordSchema, resetPasswordSchema } from "../validation/passwor
 import bcrypt from 'bcrypt';
 import { v4 as uuid4 } from "uuid";
 import { emailQueue, emailQueueName } from "../jobs/EmailJob.js";
+import { Queue } from "bullmq";
+import { redisConnection } from "../config/queue.js";
 
 const router = Router();
 

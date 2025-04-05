@@ -16,6 +16,7 @@ export type CustomUser = {
 };
 
 export const authOptions: AuthOptions = {
+    debug: true,
     pages: {
         signIn: "/login",
     },
