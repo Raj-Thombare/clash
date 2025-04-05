@@ -31,6 +31,18 @@ export const authOptions: AuthOptions = {
             return token;
         },
     },
+    cookies: {
+        sessionToken: {
+            name: `__Secure-next-auth.session-token`,
+            options: {
+                httpOnly: true,
+                sameSite: "none",
+                secure: true,
+                path: "/",
+                domain: process.env.AUTH_COOKIE_DOMAIN || ".rajthombare.xyz",
+            },
+        },
+    },
     providers: [
         CredentialsProvider({
             name: "Credentials",
