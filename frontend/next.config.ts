@@ -13,8 +13,13 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'https://clash.rajthombare.xyz',
         port: "",
+      },
+      {
+        protocol: 'https',
+        hostname: 'clash-server-8n1i.onrender.com',
+        port: "",
       }
-    ]
+    ],
   },
   reactStrictMode: false
 };

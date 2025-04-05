@@ -43,7 +43,7 @@ const ClashCard = ({ clash, token }: Props) => {
       </CardContent>
       <CardFooter>
         <Link href={`/clash/items/${clash.id}`}>
-          <Button>Item</Button>
+          <Button>View Clash</Button>
         </Link>
       </CardFooter>
     </Card>

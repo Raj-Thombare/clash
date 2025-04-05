@@ -1,13 +1,14 @@
-import { DefaultJobOptions } from "bullmq";
+import { ConnectionOptions, DefaultJobOptions } from "bullmq";
 
 // export const redisConnection: ConnectionOptions = {
 //     host: process.env.REDIS_HOST,
 //     port: 6379,
 // }
 
-export const redisConnection = {
-    url: process.env.REDIS_URL,
-    token: process.env.REDIS_TOKEN,
+export const redisConnection: ConnectionOptions = {
+    host: process.env.UPSTASH_REDIS_HOST,
+    port: Number(process.env.UPSTASH_REDIS_PORT || 6379),
+    password: process.env.UPSTASH_REDIS_PASSWORD,
 }
 
 export const defaultQueueOptions: DefaultJobOptions = {

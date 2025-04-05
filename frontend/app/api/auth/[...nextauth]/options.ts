@@ -1,6 +1,7 @@
 import { LOGIN_URL } from "@/lib/apiEndPoints";
 import axios from "axios";
 import NextAuth, { AuthOptions } from "next-auth";
+import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 export type CustomSession = {
@@ -20,7 +21,13 @@ export const authOptions: AuthOptions = {
         signIn: "/login",
     },
     callbacks: {
-        async session({ session, token }) {
+        async session({
+            session,
+            token,
+        }: {
+            session: CustomSession;
+                token: JWT;
+        }) {
             session.user = token.user as CustomUser;
             return session;
         },
@@ -28,19 +35,8 @@ export const authOptions: AuthOptions = {
             if (user) {
                 token.user = user;
             }
+
             return token;
-        },
-    },
-    cookies: {
-        sessionToken: {
-            name: `__Secure-next-auth.session-token`,
-            options: {
-                httpOnly: true,
-                sameSite: "none",
-                secure: true,
-                path: "/",
-                domain: process.env.AUTH_COOKIE_DOMAIN || ".rajthombare.xyz",
-            },
         },
     },
     providers: [
@@ -52,9 +48,7 @@ export const authOptions: AuthOptions = {
             },
             async authorize(credentials) {
                 try {
-                    const { data } = await axios.post(LOGIN_URL, credentials, {
-                        withCredentials: true
-                    });
+                    const { data } = await axios.post(LOGIN_URL, credentials);
 
                     const user: CustomUser = data?.data;
 

@@ -3,8 +3,9 @@
 //     port: 6379,
 // }
 export const redisConnection = {
-    url: process.env.REDIS_URL,
-    token: process.env.REDIS_TOKEN,
+    host: process.env.UPSTASH_REDIS_HOST,
+    port: Number(process.env.UPSTASH_REDIS_PORT || 6379),
+    password: process.env.UPSTASH_REDIS_PASSWORD,
 };
 export const defaultQueueOptions = {
     removeOnComplete: {

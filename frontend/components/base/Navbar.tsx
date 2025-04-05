@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import UserAvatar from "../common/UserAvatar";
 import LogoutModal from "../auth/LogoutModal";
+import Link from "next/link";
 
 type Props = {};
 
@@ -21,9 +22,11 @@ const Navbar = (props: Props) => {
     <>
       <LogoutModal open={open} setOpen={setOpen} />
       <nav className='flex justify-between items-center h-16 p-4 w-full shadow-md border'>
-        <h1 className='text-4xl font-extrabold bg-gradient-to-l from-blue-900 to-blue-500 text-transparent bg-clip-text'>
-          Clash
-        </h1>
+        <Link href={"/dashboard"}>
+          <h1 className='text-4xl font-extrabold bg-gradient-to-l from-blue-900 to-blue-500 text-transparent bg-clip-text'>
+            Clash
+          </h1>
+        </Link>
         <DropdownMenu>
           <DropdownMenuTrigger>
             <UserAvatar name='Raj' />
