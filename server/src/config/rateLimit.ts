@@ -5,6 +5,7 @@ export const appLimitter = rateLimit({
     limit: 100,
     standardHeaders: 'draft-8',
     legacyHeaders: false,
+    skip: (req) => req.path === "/health"
 })
 
 export const authLimitter = rateLimit({

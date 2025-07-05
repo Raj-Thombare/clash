@@ -35,7 +35,6 @@ app.use(cors({
 }));
 app.use(helmet());
 app.use(express.urlencoded({ extended: false }));
-app.use(appLimitter)
 app.use(fileUpload({
     useTempFiles: true,
     tempFileDir: '/tmp/'
@@ -44,13 +43,19 @@ app.use(express.static('public'))
 app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "./views"));
 
-app.use(Routes);
-
 app.get('/', async (req: Request, res: Response): Promise<any> => {
     return res.json({
         message: "Server is running!"
     })
 });
+
+app.get("/health", async (req: Request, res: Response): Promise<any> => {
+    return res.status(200).json({ status: "OK" });
+});
+
+app.use(appLimitter)
+
+app.use(Routes);
 
 server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
