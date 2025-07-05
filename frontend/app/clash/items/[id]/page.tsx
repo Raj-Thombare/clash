@@ -18,7 +18,7 @@ const page = async ({ params }: Props) => {
   return (
     <div>
       <Navbar />
-      <div className='px-10 mx-20'>
+      <div className='px-6 mx-6 md:px-10 md:mx-20'>
         <div className='mt-4'>
           <h1 className='text-2xl lg:text-4xl font-bold'>{clash?.title}</h1>
           <p className='text-lg'>{clash?.description}</p>

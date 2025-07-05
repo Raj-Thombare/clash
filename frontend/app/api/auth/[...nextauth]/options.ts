@@ -20,6 +20,7 @@ export const authOptions: AuthOptions = {
     pages: {
         signIn: "/login",
     },
+    secret: process.env.NEXTAUTH_SECRET, 
     callbacks: {
         async session({
             session,
@@ -49,7 +50,7 @@ export const authOptions: AuthOptions = {
             async authorize(credentials) {
                 try {
                     const { data } = await axios.post(LOGIN_URL, credentials);
-
+                    console.log("data: ", data)
                     const user: CustomUser = data?.data;
 
                     if (user) {

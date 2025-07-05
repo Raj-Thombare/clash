@@ -16,7 +16,7 @@ const page = async (props: Props) => {
   return (
     <div>
       <Navbar />
-      <div className='px-10 mx-20'>
+      <div className='px-6 mx-6 md:px-10 md:mx-20'>
         <div className='text-end mt-10'>
           <AddClash user={session?.user!} />
         </div>
