@@ -87,7 +87,7 @@ const AddClash = ({ user }: Props) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Add Clash</Button>
+        <Button>Create New</Button>
       </DialogTrigger>
       <DialogContent
         className='xl:max-h-[95vh] overflow-y-auto'

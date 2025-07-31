@@ -14,25 +14,22 @@ const page = async (props: Props) => {
   const clashes = await fetchClashes(session?.user?.token!);
 
   return (
-    <div>
-      <Navbar />
-      <div className='px-6 mx-6 md:px-10 md:mx-20'>
-        <div className='text-end mt-10'>
-          <AddClash user={session?.user!} />
-        </div>
+    <div className='px-6 mx-6 md:px-10 md:mx-20'>
+      <div className='text-end mt-10'>
+        <AddClash user={session?.user!} />
+      </div>
 
-        <div className='mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-          {clashes.length > 0 &&
-            clashes.map((item: ClashType) => {
-              return (
-                <ClashCard
-                  clash={item}
-                  token={session?.user?.token!}
-                  key={item.id}
-                />
-              );
-            })}
-        </div>
+      <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3 items-stretch my-6'>
+        {clashes.length > 0 &&
+          clashes.map((item: ClashType) => {
+            return (
+              <ClashCard
+                clash={item}
+                token={session?.user?.token!}
+                key={item.id}
+              />
+            );
+          })}
       </div>
     </div>
   );
